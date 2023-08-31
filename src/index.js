@@ -1,21 +1,18 @@
 //index.js
 import dotenv from "dotenv";
-import express from "express";      // Requisição do pacote do express
-//index.js
-//index.js
-//index.js
-//index.js
-import { selectUsuarios, selectUsuario, insertUsuario, deleteUsuario, updateUsuario } from "./bd.js";
 dotenv.config();
+
+import express from "express";      // Requisição do pacote do express
 
 const app = express();              // Instancia o Express
 const port = 3000;                  // Define a porta
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 import roteadorUsuario from "./routes/usuario.js";
 
 app.use(roteadorUsuario);
-//index.js
-app.use(express.json());
 
 app.get("/", (req, res) => {        // Cria a rota da raiz do projeto
   res.json({
@@ -24,4 +21,6 @@ app.get("/", (req, res) => {        // Cria a rota da raiz do projeto
   console.log("Rota / solicitada");
 });
 
-
+app.listen(port, () => {            // Um socket para "escutar" as requisições
+  console.log(`Serviço escutando na porta:  ${port}`);
+});
